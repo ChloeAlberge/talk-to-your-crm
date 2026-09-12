@@ -15,7 +15,11 @@ function ask() {
       return;
     }
 
-    const answer = await runAgent(question);
+    const { answer, trace } = await runAgent(question);
+    if (trace.length > 0) {
+      console.log('\n[Actions]');
+      trace.forEach((t) => console.log(`  - ${t.tool}(${JSON.stringify(t.input)})`));
+    }
     console.log('\n' + answer + '\n');
     ask();
   });
