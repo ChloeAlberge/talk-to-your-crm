@@ -69,4 +69,27 @@ export const toolDefinitions: Anthropic.Tool[] = [
       required: ['notes'],
     },
   },
+  {
+    name: 'classify_opportunity_priority',
+    description:
+      "Classify an opportunity's category and urgency level based on its stage, amount, and notes. Echoes a triage/prioritization logic: helps identify which deals need attention first. Use this after fetching an opportunity's details when the user asks which deals are at risk, need follow-up, or should be prioritized.",
+    input_schema: {
+      type: 'object',
+      properties: {
+        stage: {
+          type: 'string',
+          description: 'The opportunity pipeline stage.',
+        },
+        amount: {
+          type: 'number',
+          description: 'The opportunity amount.',
+        },
+        notes: {
+          type: 'string',
+          description: 'The raw notes text to analyze.',
+        },
+      },
+      required: ['stage', 'amount', 'notes'],
+    },
+  },
 ];
