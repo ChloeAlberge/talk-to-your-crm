@@ -29,10 +29,13 @@ export function searchContacts(query: string): Contact[] {
   const stmt = db.prepare(`
     SELECT id, first_name, last_name, email, company, role
     FROM contacts
-    WHERE first_name LIKE ? OR last_name LIKE ? OR company LIKE ?
+    WHERE first_name LIKE ?
+       OR last_name LIKE ?
+       OR company LIKE ?
+       OR (first_name || ' ' || last_name) LIKE ?
   `);
   const pattern = `%${query}%`;
-  return stmt.all(pattern, pattern, pattern) as Contact[];
+  return stmt.all(pattern, pattern, pattern, pattern) as Contact[];
 }
 
 // Search opportunities with optional filters, joined with contact info
@@ -49,8 +52,11 @@ export function searchOpportunities(filters: {
     params.push(filters.stage);
   }
   if (filters.contactName) {
-    conditions.push("(c.first_name LIKE ? OR c.last_name LIKE ?)");
-    params.push(`%${filters.contactName}%`, `%${filters.contactName}%`);
+    conditions.push(
+      "(c.first_name LIKE ? OR c.last_name LIKE ? OR (c.first_name || ' ' || c.last_name) LIKE ?)"
+    );
+    const pattern = `%${filters.contactName}%`;
+    params.push(pattern, pattern, pattern);
   }
   if (filters.minAmount !== undefined) {
     conditions.push('o.amount >= ?');
