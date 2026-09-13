@@ -1,8 +1,8 @@
 const chat = document.getElementById('chat');
-const emptyState = document.getElementById('empty-state');
 const form = document.getElementById('chat-form');
 const input = document.getElementById('chat-input');
 const actionsList = document.getElementById('actions-list');
+const resetButton = document.getElementById('reset-button');
 
 let conversationHistory = [];
 
@@ -15,7 +15,8 @@ const TOOL_LABELS = {
 };
 
 function addMessage(text, sender) {
-  if (emptyState) emptyState.remove();
+  const currentEmptyState = document.getElementById('empty-state');
+  if (currentEmptyState) currentEmptyState.remove();
   const div = document.createElement('div');
   div.className = 'message ' + sender;
   div.textContent = text;
@@ -48,6 +49,24 @@ function renderTrace(trace) {
     actionsList.appendChild(item);
   });
 }
+
+function resetConversation() {
+  conversationHistory = [];
+  chat.innerHTML = `
+    <div class="empty-state" id="empty-state">
+      <div class="label">Exemples de questions</div>
+      <ul>
+        <li>Quelles affaires sont en négociation ?</li>
+        <li>Résumez-moi l'opportunité avec Pierre Vasseur</li>
+        <li>Quelles affaires dépassent 50 000 euros ?</li>
+      </ul>
+    </div>
+  `;
+  actionsList.innerHTML = '<div class="actions-empty">Les tools appelés par l\'agent pour répondre à votre question apparaîtront ici.</div>';
+  input.focus();
+}
+
+resetButton.addEventListener('click', resetConversation);
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
