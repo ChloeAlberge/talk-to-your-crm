@@ -1,43 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>talk-to-your-crm</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="app">
-    <div class="app-header">
-      <h1>Talk to your CRM</h1>
-      <p>Posez une question sur vos contacts et opportunités</p>
-    </div>
-    <div class="body">
-      <div class="actions-panel">
-        <h2>Actions de l'agent</h2>
-        <div id="actions-list">
-          <div class="actions-empty">Les tools appelés par l'agent pour répondre à votre question apparaîtront ici.</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>talk-to-your-crm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="app-header">
+        <div class="header-text">
+          <h1>Talk to your CRM</h1>
+          <p>Posez une question sur vos contacts et opportunités</p>
+        </div>
+        <button id="reset-button" type="button">Nouvelle conversation</button>
+      </div>
+      <div class="body">
+        <div class="actions-panel">
+          <h2>Actions de l'agent</h2>
+          <div id="actions-list">
+            <div class="actions-empty">
+              Les tools appelés par l'agent pour répondre à votre question
+              apparaîtront ici.
+            </div>
+          </div>
+        </div>
+        <div id="chat">
+          <div class="empty-state" id="empty-state">
+            <div class="label">Exemples de questions</div>
+            <ul>
+              <li>Quelles affaires sont en négociation ?</li>
+              <li>Résumez-moi l'opportunité avec Pierre Vasseur</li>
+              <li>Quelles affaires dépassent 50 000 euros ?</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div id="chat">
-        <div class="empty-state" id="empty-state">
-          <div class="label">Exemples de questions</div>
-          <ul>
-            <li>Quelles affaires sont en négociation ?</li>
-            <li>Résumez-moi l'opportunité avec Pierre Vasseur</li>
-            <li>Quelles affaires dépassent 50 000 euros ?</li>
-          </ul>
-        </div>
-      </div>
+      <form id="chat-form">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Écrivez votre question..."
+          autocomplete="off"
+        />
+        <button type="submit">Envoyer</button>
+      </form>
     </div>
-    <form id="chat-form">
-      <input id="chat-input" type="text" placeholder="Écrivez votre question..." autocomplete="off" />
-      <button type="submit">Envoyer</button>
-    </form>
-  </div>
 
-  <script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
